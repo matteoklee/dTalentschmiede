@@ -3,7 +3,7 @@ package de.dataport.dtalentschmiede;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "de.dataport.dtalentschmiede.**")
 public class DTalentschmiedeApplication {
 
     public static void main(String[] args) {
