@@ -5,8 +5,8 @@ import de.dataport.dtalentschmiede.api.project.dto.ProjectResponseDTO;
 import de.dataport.dtalentschmiede.core.project.Project;
 import de.dataport.dtalentschmiede.core.project.ProjectImpl;
 import de.dataport.dtalentschmiede.core.project.ProjectService;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,10 +29,19 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
-    public List<Project> getAllProjects() {
-        return new ArrayList<>(projectService.findAllProjects());
+    @GetMapping
+    public ResponseEntity<List<Project>> getAllProjects() {
+        return ResponseEntity.ok(new ArrayList<>(projectService.findAllProjects()));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Project> getProjectById(@PathVariable(value = "id") long projectId) {
+        try {
+            return ResponseEntity.ok(projectService.findProjectById(projectId));
+        } catch (Exception exception) {
+            return (ResponseEntity<Project>) ResponseEntity.noContent();
+        }
 
+    }
 
 }
