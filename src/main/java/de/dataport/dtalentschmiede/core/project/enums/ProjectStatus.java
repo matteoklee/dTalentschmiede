@@ -1,4 +1,4 @@
-package de.dataport.dtalentschmiede.enums;
+package de.dataport.dtalentschmiede.core.project.enums;
 
 public enum ProjectStatus {
 
@@ -6,6 +6,7 @@ public enum ProjectStatus {
     OPEN,
     IN_PROGRESS,
     COMPLETED,
-    CANCELLED;
+    CANCELLED,
+    ARCHIVED;
 
 }

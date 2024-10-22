@@ -1,4 +1,4 @@
-package de.dataport.dtalentschmiede.config;
+package de.dataport.dtalentschmiede.core.config;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories("de.dataport.dtalentschmiede.repository")
-@EntityScan("de.dataprt.dtalentschmiede.model")
+@EnableJpaRepositories("de.dataport.dtalentschmiede")
+@EntityScan("de.dataprt.dtalentschmiede")
 public class PersistenceConfiguration {
 }
