@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication(scanBasePackages = "de.dataport.dtalentschmiede.**")
-public class DTalentschmiedeApplication {
+public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(DTalentschmiedeApplication.class, args);
+        SpringApplication.run(Application.class, args);
         System.out.println("      _ _____     _            _            _               _          _      \n" +
                 "   __| |_   _|_ _| | ___ _ __ | |_ ___  ___| |__  _ __ ___ (_) ___  __| | ___ \n" +
                 "  / _` | | |/ _` | |/ _ \\ '_ \\| __/ __|/ __| '_ \\| '_ ` _ \\| |/ _ \\/ _` |/ _ \\\n" +
