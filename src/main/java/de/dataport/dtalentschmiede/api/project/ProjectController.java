@@ -40,4 +40,41 @@ public class ProjectController {
         return ResponseEntity.ok(projectService.findProjectById(projectId));
     }
 
+    @PostMapping
+    public ResponseEntity<Project> createProject(@RequestBody ProjectRequestDTO projectRequestDTO) {
+        Project newProject = mapRequestToProject(projectRequestDTO);
+        Project persistedProject = projectService.persistProject(newProject);
+        return new ResponseEntity<>(persistedProject, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Project> updateProject(@PathVariable(value = "id") long projectId, @RequestBody ProjectRequestDTO projectRequestDTO) {
+        Project updatedProject = mapRequestToProject(projectRequestDTO);
+        updatedProject.setProjectId(projectId);
+        Project persistedProject = projectService.updateProject(projectId, updatedProject);
+        return ResponseEntity.ok(persistedProject);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProject(@PathVariable(value = "id") long projectId) {
+        projectService.deleteProjectById(projectId);
+        return ResponseEntity.noContent().build();
+    }
+
+    //TODO:finishProject
+
+    private Project mapRequestToProject(ProjectRequestDTO dto) {
+        Project project = projectService.createProject();
+        project.setProjectTitle(dto.getProjectTitle());
+        project.setProjectDescription(dto.getProjectDescription());
+        project.setProjectStatus(dto.getProjectStatus());
+        project.setProjectTypes(dto.getProjectTypes());
+        project.setProjectTechnologies(dto.getProjectTechnologies());
+        project.setProjectSoftSkills(dto.getProjectSoftSkills());
+        project.setProjectHardSkills(dto.getProjectHardSkills());
+        project.setProjectRepresentative(dto.getProjectRepresentative());
+        project.setProjectRepresentativeEmail(dto.getProjectRepresentativeEmail());
+        return project;
+    }
+
 }

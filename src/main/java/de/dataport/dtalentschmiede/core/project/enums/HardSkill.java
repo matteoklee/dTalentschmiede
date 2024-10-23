@@ -8,4 +8,14 @@ package de.dataport.dtalentschmiede.core.project.enums;
  * @since 22.10.2024
  */
 public enum HardSkill {
+
+    SOFTWARE_ARCHITECTURE,
+    TESTING,
+    VERSION_CONTROL,
+    DOCUMENTATION,
+    DATABASE_MANAGEMENT,
+    AGILE,
+    SECURITY,
+    DEVOPS;
+
 }
