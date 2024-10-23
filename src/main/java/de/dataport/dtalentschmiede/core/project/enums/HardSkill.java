@@ -14,6 +14,7 @@ public enum HardSkill {
     VERSION_CONTROL,
     DOCUMENTATION,
     DATABASE_MANAGEMENT,
+    PROGRAMMING,
     AGILE,
     SECURITY,
     DEVOPS;

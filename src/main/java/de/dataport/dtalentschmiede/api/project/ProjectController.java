@@ -31,28 +31,28 @@ public class ProjectController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Project>> getAllProjects() {
-        return ResponseEntity.ok(new ArrayList<>(projectService.findAllProjects()));
+    public ResponseEntity<List<ProjectResponseDTO>> getAllProjects() {
+        return ResponseEntity.ok(new ArrayList<>(projectService.findAllProjects().stream().map(ProjectResponseDTO::new).collect(Collectors.toList())));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Project> getProjectById(@PathVariable(value = "id") long projectId) {
-        return ResponseEntity.ok(projectService.findProjectById(projectId));
+    public ResponseEntity<ProjectResponseDTO> getProjectById(@PathVariable(value = "id") long projectId) {
+        return ResponseEntity.ok(new ProjectResponseDTO(projectService.findProjectById(projectId)));
     }
 
     @PostMapping
-    public ResponseEntity<Project> createProject(@RequestBody ProjectRequestDTO projectRequestDTO) {
-        Project newProject = mapRequestToProject(projectRequestDTO);
+    public ResponseEntity<ProjectResponseDTO> createProject(@RequestBody ProjectRequestDTO projectRequestDTO) {
+        Project newProject = mapToProject(projectRequestDTO);
         Project persistedProject = projectService.persistProject(newProject);
-        return new ResponseEntity<>(persistedProject, HttpStatus.CREATED);
+        return new ResponseEntity<>(new ProjectResponseDTO(persistedProject), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Project> updateProject(@PathVariable(value = "id") long projectId, @RequestBody ProjectRequestDTO projectRequestDTO) {
-        Project updatedProject = mapRequestToProject(projectRequestDTO);
+    public ResponseEntity<ProjectResponseDTO> updateProject(@PathVariable(value = "id") long projectId, @RequestBody ProjectRequestDTO projectRequestDTO) {
+        Project updatedProject = mapToProject(projectRequestDTO);
         updatedProject.setProjectId(projectId);
         Project persistedProject = projectService.updateProject(projectId, updatedProject);
-        return ResponseEntity.ok(persistedProject);
+        return ResponseEntity.ok(new ProjectResponseDTO(persistedProject));
     }
 
     @DeleteMapping("/{id}")
@@ -63,7 +63,7 @@ public class ProjectController {
 
     //TODO:finishProject
 
-    private Project mapRequestToProject(ProjectRequestDTO dto) {
+    private Project mapToProject(ProjectRequestDTO dto) {
         Project project = projectService.createProject();
         project.setProjectTitle(dto.getProjectTitle());
         project.setProjectDescription(dto.getProjectDescription());
