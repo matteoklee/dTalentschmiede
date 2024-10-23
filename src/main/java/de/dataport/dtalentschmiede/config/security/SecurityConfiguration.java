@@ -1,4 +1,4 @@
-package de.dataport.dtalentschmiede.core.config.security;
+package de.dataport.dtalentschmiede.config.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

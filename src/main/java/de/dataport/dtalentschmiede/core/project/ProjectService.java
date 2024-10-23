@@ -62,4 +62,9 @@ public class ProjectService {
         projectPersistenceService.deleteProject(((ProjectImpl)project).getProjectEntity());
     }
 
+    public void deleteProjectById(long projectId) {
+        projectPersistenceService.deleteProjectById(projectId);
+    }
+
+
 }
