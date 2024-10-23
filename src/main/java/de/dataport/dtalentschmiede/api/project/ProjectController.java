@@ -5,6 +5,7 @@ import de.dataport.dtalentschmiede.api.project.dto.ProjectResponseDTO;
 import de.dataport.dtalentschmiede.core.project.Project;
 import de.dataport.dtalentschmiede.core.project.ProjectImpl;
 import de.dataport.dtalentschmiede.core.project.ProjectService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,12 +37,7 @@ public class ProjectController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Project> getProjectById(@PathVariable(value = "id") long projectId) {
-        try {
-            return ResponseEntity.ok(projectService.findProjectById(projectId));
-        } catch (Exception exception) {
-            return (ResponseEntity<Project>) ResponseEntity.noContent();
-        }
-
+        return ResponseEntity.ok(projectService.findProjectById(projectId));
     }
 
 }
