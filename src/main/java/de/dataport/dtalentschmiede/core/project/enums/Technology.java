@@ -9,6 +9,7 @@ public enum Technology {
     VUE_JS,
     SPRING_BOOT,
     VUETIFY,
-    REACT;
-
+    NODE_JS,
+    DOCKER,
+    OTHER;
 }

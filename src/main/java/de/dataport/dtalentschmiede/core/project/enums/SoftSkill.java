@@ -7,7 +7,8 @@ public enum SoftSkill {
     CLIENT_INTERACTION,
     PROBLEM_SOLVING,
     TEAMWORK,
-    TIME_MANAGEMENT;
+    TIME_MANAGEMENT,
+    OTHER;
 
 
 }

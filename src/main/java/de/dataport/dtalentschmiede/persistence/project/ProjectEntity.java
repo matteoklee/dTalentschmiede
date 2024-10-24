@@ -32,6 +32,7 @@ public class ProjectEntity {
     private String projectRepresentative;
     private String projectRepresentativeEmail;
     //private Integer requiredTalents;
+    //private Date projectDeadline
 
 
     public ProjectEntity() {
