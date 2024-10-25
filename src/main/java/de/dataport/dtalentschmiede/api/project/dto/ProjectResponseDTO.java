@@ -3,8 +3,8 @@ package de.dataport.dtalentschmiede.api.project.dto;
 import de.dataport.dtalentschmiede.core.project.Project;
 import de.dataport.dtalentschmiede.core.project.enums.HardSkill;
 import de.dataport.dtalentschmiede.core.project.enums.ProjectStatus;
-import de.dataport.dtalentschmiede.core.project.enums.ProjectType;
 import de.dataport.dtalentschmiede.core.project.enums.SoftSkill;
+import de.dataport.dtalentschmiede.core.projecttype.ProjectType;
 import de.dataport.dtalentschmiede.core.technology.Technology;
 
 import java.util.Date;

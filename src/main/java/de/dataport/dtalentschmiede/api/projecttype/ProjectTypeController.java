@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * @since 25.10.2024
  */
 @RestController
-@RequestMapping("/api/v1/projecttype")
+@RequestMapping("/api/v1/project-type")
 public class ProjectTypeController {
 
     private final ProjectTypeService projectTypeService;
