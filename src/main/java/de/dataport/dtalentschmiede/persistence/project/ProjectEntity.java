@@ -27,9 +27,9 @@ public class ProjectEntity {
     private Date projectCreatedAt;
     private Date projectUpdatedAt;
     private Date projectFinishedAt;
-    @OneToMany
+    @ManyToMany
     private List<ProjectTypeEntity> projectTypes;
-    @OneToMany
+    @ManyToMany
     private List<TechnologyEntity> projectTechnologies;
     private List<SoftSkill> projectSoftSkills;
     private List<HardSkill> projectHardSkills;
