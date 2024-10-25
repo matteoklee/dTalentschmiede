@@ -4,7 +4,7 @@ import de.dataport.dtalentschmiede.api.hardskill.dto.HardSkillDTO;
 import de.dataport.dtalentschmiede.api.projecttype.dto.ProjectTypeDTO;
 import de.dataport.dtalentschmiede.api.softskill.dto.SoftSkillDTO;
 import de.dataport.dtalentschmiede.api.technology.dto.TechnologyDTO;
-import de.dataport.dtalentschmiede.core.project.enums.ProjectStatus;
+import de.dataport.dtalentschmiede.core.project.ProjectStatus;
 
 import java.util.List;
 

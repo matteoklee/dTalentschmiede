@@ -1,6 +1,6 @@
 package de.dataport.dtalentschmiede.persistence.project;
 
-import de.dataport.dtalentschmiede.core.project.enums.ProjectStatus;
+import de.dataport.dtalentschmiede.core.project.ProjectStatus;
 import de.dataport.dtalentschmiede.persistence.hardskill.HardSkillEntity;
 import de.dataport.dtalentschmiede.persistence.projecttype.ProjectTypeEntity;
 import de.dataport.dtalentschmiede.persistence.softskill.SoftSkillEntity;

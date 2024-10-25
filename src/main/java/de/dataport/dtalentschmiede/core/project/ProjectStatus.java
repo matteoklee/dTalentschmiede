@@ -1,4 +1,4 @@
-package de.dataport.dtalentschmiede.core.project.enums;
+package de.dataport.dtalentschmiede.core.project;
 
 public enum ProjectStatus {
 

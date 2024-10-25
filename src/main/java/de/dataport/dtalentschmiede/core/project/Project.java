@@ -2,7 +2,6 @@ package de.dataport.dtalentschmiede.core.project;
 
 import de.dataport.dtalentschmiede.core.hardskill.HardSkill;
 import de.dataport.dtalentschmiede.core.hardskill.HardSkillImpl;
-import de.dataport.dtalentschmiede.core.project.enums.ProjectStatus;
 import de.dataport.dtalentschmiede.core.projecttype.ProjectType;
 import de.dataport.dtalentschmiede.core.projecttype.ProjectTypeImpl;
 import de.dataport.dtalentschmiede.core.softskill.SoftSkill;
