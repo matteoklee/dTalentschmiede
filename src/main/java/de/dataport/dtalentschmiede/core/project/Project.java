@@ -3,9 +3,10 @@ package de.dataport.dtalentschmiede.core.project;
 import de.dataport.dtalentschmiede.core.hardskill.HardSkill;
 import de.dataport.dtalentschmiede.core.hardskill.HardSkillImpl;
 import de.dataport.dtalentschmiede.core.project.enums.ProjectStatus;
-import de.dataport.dtalentschmiede.core.project.enums.SoftSkill;
 import de.dataport.dtalentschmiede.core.projecttype.ProjectType;
 import de.dataport.dtalentschmiede.core.projecttype.ProjectTypeImpl;
+import de.dataport.dtalentschmiede.core.softskill.SoftSkill;
+import de.dataport.dtalentschmiede.core.softskill.SoftSkillImpl;
 import de.dataport.dtalentschmiede.core.technology.Technology;
 import de.dataport.dtalentschmiede.core.technology.TechnologyImpl;
 
@@ -56,7 +57,7 @@ public interface Project {
 
     public List<SoftSkill> getProjectSoftSkills();
 
-    public void setProjectSoftSkills(List<SoftSkill> projectSoftSkills);
+    public void setProjectSoftSkills(List<SoftSkillImpl> projectSoftSkills);
 
     public List<HardSkill> getProjectHardSkills();
 
