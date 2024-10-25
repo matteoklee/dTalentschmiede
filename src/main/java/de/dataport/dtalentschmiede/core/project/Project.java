@@ -2,11 +2,11 @@ package de.dataport.dtalentschmiede.core.project;
 
 import de.dataport.dtalentschmiede.core.project.enums.HardSkill;
 import de.dataport.dtalentschmiede.core.project.enums.ProjectStatus;
-import de.dataport.dtalentschmiede.core.project.enums.ProjectType;
 import de.dataport.dtalentschmiede.core.project.enums.SoftSkill;
+import de.dataport.dtalentschmiede.core.projecttype.ProjectType;
+import de.dataport.dtalentschmiede.core.projecttype.ProjectTypeImpl;
 import de.dataport.dtalentschmiede.core.technology.Technology;
 import de.dataport.dtalentschmiede.core.technology.TechnologyImpl;
-import de.dataport.dtalentschmiede.persistence.technology.TechnologyEntity;
 
 import java.util.Date;
 import java.util.List;
@@ -48,7 +48,7 @@ public interface Project {
 
     public List<ProjectType> getProjectTypes();
 
-    public void setProjectTypes(List<ProjectType> projectTypes);
+    public void setProjectTypes(List<ProjectTypeImpl> projectTypes);
 
     public List<Technology> getProjectTechnologies();
     public void setProjectTechnologies(List<TechnologyImpl> projectTechnologies) ;

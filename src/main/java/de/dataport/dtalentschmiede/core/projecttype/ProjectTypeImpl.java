@@ -1,6 +1,8 @@
 package de.dataport.dtalentschmiede.core.projecttype;
 
+import de.dataport.dtalentschmiede.core.technology.Technology;
 import de.dataport.dtalentschmiede.persistence.projecttype.ProjectTypeEntity;
+import de.dataport.dtalentschmiede.persistence.technology.TechnologyEntity;
 
 /**
  * Class "ProjectTypeImpl" is used for ...
@@ -16,6 +18,14 @@ public class ProjectTypeImpl implements ProjectType {
     public ProjectTypeImpl(ProjectTypeEntity projectTypeEntity) {
         this.projectTypeEntity = projectTypeEntity;
     }
+
+    public ProjectTypeImpl(ProjectType projectType) {
+        this.projectTypeEntity = new ProjectTypeEntity();
+        this.projectTypeEntity.setProjectTypeId(projectType.getProjectTypeId());
+        this.projectTypeEntity.setProjectTypeName(projectType.getProjectTypeName());
+        this.projectTypeEntity.setProjectTypeValue(projectType.getProjectTypeValue());
+    }
+
 
     public ProjectTypeEntity getProjectTypeEntity() {
         return projectTypeEntity;

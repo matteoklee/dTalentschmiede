@@ -2,11 +2,13 @@ package de.dataport.dtalentschmiede.core.project;
 
 import de.dataport.dtalentschmiede.core.project.enums.HardSkill;
 import de.dataport.dtalentschmiede.core.project.enums.ProjectStatus;
-import de.dataport.dtalentschmiede.core.project.enums.ProjectType;
 import de.dataport.dtalentschmiede.core.project.enums.SoftSkill;
+import de.dataport.dtalentschmiede.core.projecttype.ProjectType;
+import de.dataport.dtalentschmiede.core.projecttype.ProjectTypeImpl;
 import de.dataport.dtalentschmiede.core.technology.Technology;
 import de.dataport.dtalentschmiede.core.technology.TechnologyImpl;
 import de.dataport.dtalentschmiede.persistence.project.ProjectEntity;
+import de.dataport.dtalentschmiede.persistence.projecttype.ProjectTypeEntity;
 import de.dataport.dtalentschmiede.persistence.technology.TechnologyEntity;
 
 import java.util.Date;
@@ -104,12 +106,19 @@ public class ProjectImpl implements Project {
 
     @Override
     public List<ProjectType> getProjectTypes() {
-        return projectEntity.getProjectTypes();
+        return projectEntity.getProjectTypes()
+                .stream()
+                .map(ProjectTypeImpl::new)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public void setProjectTypes(List<ProjectType> projectTypes) {
-        projectEntity.setProjectTypes(projectTypes);
+    public void setProjectTypes(List<ProjectTypeImpl> projectTypes) {
+        List<ProjectTypeEntity> projectTypeEntities = projectTypes
+                .stream()
+                .map(ProjectTypeImpl::getProjectTypeEntity)
+                .collect(Collectors.toList());
+        projectEntity.setProjectTypes(projectTypeEntities);
     }
 
     @Override

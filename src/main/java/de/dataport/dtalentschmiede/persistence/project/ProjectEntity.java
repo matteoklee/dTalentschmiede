@@ -1,6 +1,7 @@
 package de.dataport.dtalentschmiede.persistence.project;
 
 import de.dataport.dtalentschmiede.core.project.enums.*;
+import de.dataport.dtalentschmiede.persistence.projecttype.ProjectTypeEntity;
 import de.dataport.dtalentschmiede.persistence.technology.TechnologyEntity;
 import jakarta.persistence.*;
 
@@ -26,7 +27,8 @@ public class ProjectEntity {
     private Date projectCreatedAt;
     private Date projectUpdatedAt;
     private Date projectFinishedAt;
-    private List<ProjectType> projectTypes;
+    @OneToMany
+    private List<ProjectTypeEntity> projectTypes;
     @OneToMany
     private List<TechnologyEntity> projectTechnologies;
     private List<SoftSkill> projectSoftSkills;
@@ -40,7 +42,7 @@ public class ProjectEntity {
     public ProjectEntity() {
     }
 
-    public ProjectEntity(Long projectId, String projectTitle, String projectDescription, ProjectStatus projectStatus, Date projectCreatedAt, Date projectUpdatedAt, Date projectFinishedAt, List<ProjectType> projectTypes, List<TechnologyEntity> projectTechnologies, List<SoftSkill> projectSoftSkills, List<HardSkill> projectHardSkills, String projectRepresentative, String projectRepresentativeEmail) {
+    public ProjectEntity(Long projectId, String projectTitle, String projectDescription, ProjectStatus projectStatus, Date projectCreatedAt, Date projectUpdatedAt, Date projectFinishedAt, List<ProjectTypeEntity> projectTypes, List<TechnologyEntity> projectTechnologies, List<SoftSkill> projectSoftSkills, List<HardSkill> projectHardSkills, String projectRepresentative, String projectRepresentativeEmail) {
         this.projectId = projectId;
         this.projectTitle = projectTitle;
         this.projectDescription = projectDescription;
@@ -117,11 +119,11 @@ public class ProjectEntity {
         this.projectFinishedAt = projectFinishedAt;
     }
 
-    public List<ProjectType> getProjectTypes() {
+    public List<ProjectTypeEntity> getProjectTypes() {
         return projectTypes;
     }
 
-    public void setProjectTypes(List<ProjectType> projectTypes) {
+    public void setProjectTypes(List<ProjectTypeEntity> projectTypes) {
         this.projectTypes = projectTypes;
     }
 
