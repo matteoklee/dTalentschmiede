@@ -1,12 +1,14 @@
 package de.dataport.dtalentschmiede.core.project;
 
-import de.dataport.dtalentschmiede.core.project.enums.HardSkill;
+import de.dataport.dtalentschmiede.core.hardskill.HardSkill;
+import de.dataport.dtalentschmiede.core.hardskill.HardSkillImpl;
 import de.dataport.dtalentschmiede.core.project.enums.ProjectStatus;
 import de.dataport.dtalentschmiede.core.project.enums.SoftSkill;
 import de.dataport.dtalentschmiede.core.projecttype.ProjectType;
 import de.dataport.dtalentschmiede.core.projecttype.ProjectTypeImpl;
 import de.dataport.dtalentschmiede.core.technology.Technology;
 import de.dataport.dtalentschmiede.core.technology.TechnologyImpl;
+import de.dataport.dtalentschmiede.persistence.hardskill.HardSkillEntity;
 import de.dataport.dtalentschmiede.persistence.project.ProjectEntity;
 import de.dataport.dtalentschmiede.persistence.projecttype.ProjectTypeEntity;
 import de.dataport.dtalentschmiede.persistence.technology.TechnologyEntity;
@@ -150,12 +152,16 @@ public class ProjectImpl implements Project {
 
     @Override
     public List<HardSkill> getProjectHardSkills() {
-        return projectEntity.getProjectHardSkills();
+        return projectEntity.getProjectHardSkills().stream().map(HardSkillImpl::new).collect(Collectors.toList());
     }
 
     @Override
-    public void setProjectHardSkills(List<HardSkill> projectHardSkills) {
-        projectEntity.setProjectHardSkills(projectHardSkills);
+    public void setProjectHardSkills(List<HardSkillImpl> projectHardSkills) {
+        List<HardSkillEntity> hardSkillEntities = projectHardSkills
+                .stream()
+                .map(HardSkillImpl::getHardSkillEntity)
+                .collect(Collectors.toList());
+        projectEntity.setProjectHardSkills(hardSkillEntities);
     }
 
     @Override

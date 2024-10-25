@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * @since 25.10.2024
  */
 @RestController
-@RequestMapping("/api/v1/hardskill")
+@RequestMapping("/api/v1/hard-skill")
 public class HardSkillController {
 
     private final HardSkillService hardSkillService;

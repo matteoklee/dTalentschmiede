@@ -1,6 +1,9 @@
 package de.dataport.dtalentschmiede.persistence.project;
 
-import de.dataport.dtalentschmiede.core.project.enums.*;
+import de.dataport.dtalentschmiede.core.hardskill.HardSkill;
+import de.dataport.dtalentschmiede.core.project.enums.ProjectStatus;
+import de.dataport.dtalentschmiede.core.project.enums.SoftSkill;
+import de.dataport.dtalentschmiede.persistence.hardskill.HardSkillEntity;
 import de.dataport.dtalentschmiede.persistence.projecttype.ProjectTypeEntity;
 import de.dataport.dtalentschmiede.persistence.technology.TechnologyEntity;
 import jakarta.persistence.*;
@@ -32,7 +35,8 @@ public class ProjectEntity {
     @ManyToMany
     private List<TechnologyEntity> projectTechnologies;
     private List<SoftSkill> projectSoftSkills;
-    private List<HardSkill> projectHardSkills;
+    @ManyToMany
+    private List<HardSkillEntity> projectHardSkills;
     private String projectRepresentative;
     private String projectRepresentativeEmail;
     //private Integer requiredTalents;
@@ -42,7 +46,7 @@ public class ProjectEntity {
     public ProjectEntity() {
     }
 
-    public ProjectEntity(Long projectId, String projectTitle, String projectDescription, ProjectStatus projectStatus, Date projectCreatedAt, Date projectUpdatedAt, Date projectFinishedAt, List<ProjectTypeEntity> projectTypes, List<TechnologyEntity> projectTechnologies, List<SoftSkill> projectSoftSkills, List<HardSkill> projectHardSkills, String projectRepresentative, String projectRepresentativeEmail) {
+    public ProjectEntity(Long projectId, String projectTitle, String projectDescription, ProjectStatus projectStatus, Date projectCreatedAt, Date projectUpdatedAt, Date projectFinishedAt, List<ProjectTypeEntity> projectTypes, List<TechnologyEntity> projectTechnologies, List<SoftSkill> projectSoftSkills, List<HardSkillEntity> projectHardSkills, String projectRepresentative, String projectRepresentativeEmail) {
         this.projectId = projectId;
         this.projectTitle = projectTitle;
         this.projectDescription = projectDescription;
@@ -143,11 +147,11 @@ public class ProjectEntity {
         this.projectSoftSkills = projectSoftSkills;
     }
 
-    public List<HardSkill> getProjectHardSkills() {
+    public List<HardSkillEntity> getProjectHardSkills() {
         return projectHardSkills;
     }
 
-    public void setProjectHardSkills(List<HardSkill> projectHardSkills) {
+    public void setProjectHardSkills(List<HardSkillEntity> projectHardSkills) {
         this.projectHardSkills = projectHardSkills;
     }
 
