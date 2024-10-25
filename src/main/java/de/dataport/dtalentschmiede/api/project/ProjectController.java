@@ -2,9 +2,13 @@ package de.dataport.dtalentschmiede.api.project;
 
 import de.dataport.dtalentschmiede.api.project.dto.ProjectRequestDTO;
 import de.dataport.dtalentschmiede.api.project.dto.ProjectResponseDTO;
+import de.dataport.dtalentschmiede.api.technology.dto.TechnologyDTO;
+import de.dataport.dtalentschmiede.api.technology.dto.TechnologyRequestDTO;
 import de.dataport.dtalentschmiede.core.project.Project;
-import de.dataport.dtalentschmiede.core.project.ProjectImpl;
 import de.dataport.dtalentschmiede.core.project.ProjectService;
+import de.dataport.dtalentschmiede.core.technology.Technology;
+import de.dataport.dtalentschmiede.core.technology.TechnologyImpl;
+import de.dataport.dtalentschmiede.core.technology.TechnologyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +29,11 @@ import java.util.stream.Collectors;
 public class ProjectController {
 
     private final ProjectService projectService;
+    private final TechnologyService technologyService;
 
-    public ProjectController(ProjectService projectService) {
+    public ProjectController(ProjectService projectService, TechnologyService technologyService) {
         this.projectService = projectService;
+        this.technologyService = technologyService;
     }
 
     @GetMapping
@@ -69,7 +75,22 @@ public class ProjectController {
         project.setProjectDescription(dto.getProjectDescription());
         project.setProjectStatus(dto.getProjectStatus());
         project.setProjectTypes(dto.getProjectTypes());
-        project.setProjectTechnologies(dto.getProjectTechnologies());
+        /*List<TechnologyImpl> technologyImpls = dto.getProjectTechnologies()
+                .stream()
+                .map(TechnologyImpl::new)
+                .collect(Collectors.toList());*/
+        List<Technology> technologies = new ArrayList<>();
+        for(TechnologyDTO technologyDTO : dto.getProjectTechnologies()) {
+            Technology technology = technologyService.findTechnologyById(technologyDTO.getTechnologyId());
+            if(technology == null) {
+                break;
+            }
+            technologies.add(technology);
+        }
+        if(technologies != null) {
+            project.setProjectTechnologies(technologies.stream().map(TechnologyImpl::new).collect(Collectors.toList()));
+
+        }
         project.setProjectSoftSkills(dto.getProjectSoftSkills());
         project.setProjectHardSkills(dto.getProjectHardSkills());
         project.setProjectRepresentative(dto.getProjectRepresentative());

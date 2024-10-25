@@ -1,10 +1,17 @@
 package de.dataport.dtalentschmiede.core.project;
 
-import de.dataport.dtalentschmiede.core.project.enums.*;
+import de.dataport.dtalentschmiede.core.project.enums.HardSkill;
+import de.dataport.dtalentschmiede.core.project.enums.ProjectStatus;
+import de.dataport.dtalentschmiede.core.project.enums.ProjectType;
+import de.dataport.dtalentschmiede.core.project.enums.SoftSkill;
+import de.dataport.dtalentschmiede.core.technology.Technology;
+import de.dataport.dtalentschmiede.core.technology.TechnologyImpl;
 import de.dataport.dtalentschmiede.persistence.project.ProjectEntity;
+import de.dataport.dtalentschmiede.persistence.technology.TechnologyEntity;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Class "ProjectImpl" is used for ...
@@ -107,12 +114,19 @@ public class ProjectImpl implements Project {
 
     @Override
     public List<Technology> getProjectTechnologies() {
-        return projectEntity.getProjectTechnologies();
+        return projectEntity.getProjectTechnologies()
+                .stream()
+                .map(TechnologyImpl::new)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public void setProjectTechnologies(List<Technology> projectTechnologies) {
-        projectEntity.setProjectTechnologies(projectTechnologies);
+    public void setProjectTechnologies(List<TechnologyImpl> projectTechnologies) {
+        List<TechnologyEntity> technologyEntities = projectTechnologies
+                .stream()
+                .map(TechnologyImpl::getTechnologyEntity)
+                .collect(Collectors.toList());
+        projectEntity.setProjectTechnologies(technologyEntities);
     }
 
     @Override

@@ -19,7 +19,6 @@ public class ErrorResponse {
         this.timestamp = timestamp;
     }
 
-    // Getter und Setter
     public int getStatusCode() {
         return statusCode;
     }
