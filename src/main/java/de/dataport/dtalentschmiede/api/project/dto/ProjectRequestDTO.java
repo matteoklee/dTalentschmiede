@@ -1,6 +1,10 @@
 package de.dataport.dtalentschmiede.api.project.dto;
 
-import de.dataport.dtalentschmiede.core.project.enums.*;
+import de.dataport.dtalentschmiede.api.hardskill.dto.HardSkillDTO;
+import de.dataport.dtalentschmiede.api.projecttype.dto.ProjectTypeDTO;
+import de.dataport.dtalentschmiede.api.technology.dto.TechnologyDTO;
+import de.dataport.dtalentschmiede.core.project.enums.ProjectStatus;
+import de.dataport.dtalentschmiede.core.project.enums.SoftSkill;
 
 import java.util.List;
 
@@ -15,17 +19,17 @@ public class ProjectRequestDTO {
 
     private String projectTitle;
     private String projectDescription;
-    private ProjectStatus projectStatus; // Optional, falls benötigt
-    private List<ProjectType> projectTypes;
-    private List<Technology> projectTechnologies;
+    private ProjectStatus projectStatus;
+    private List<ProjectTypeDTO> projectTypes;
+    private List<TechnologyDTO> projectTechnologies;
     private List<SoftSkill> projectSoftSkills;
-    private List<HardSkill> projectHardSkills;
+    private List<HardSkillDTO> projectHardSkills;
     private String projectRepresentative;
     private String projectRepresentativeEmail;
 
     public ProjectRequestDTO() {}
 
-    public ProjectRequestDTO(String projectTitle, String projectDescription, ProjectStatus projectStatus, List<ProjectType> projectTypes, List<Technology> projectTechnologies, List<SoftSkill> projectSoftSkills, List<HardSkill> projectHardSkills, String projectRepresentative, String projectRepresentativeEmail) {
+    public ProjectRequestDTO(String projectTitle, String projectDescription, ProjectStatus projectStatus, List<ProjectTypeDTO> projectTypes, List<TechnologyDTO> projectTechnologies, List<SoftSkill> projectSoftSkills, List<HardSkillDTO> projectHardSkills, String projectRepresentative, String projectRepresentativeEmail) {
         this.projectTitle = projectTitle;
         this.projectDescription = projectDescription;
         this.projectStatus = projectStatus;
@@ -61,19 +65,19 @@ public class ProjectRequestDTO {
         this.projectStatus = projectStatus;
     }
 
-    public List<ProjectType> getProjectTypes() {
+    public List<ProjectTypeDTO> getProjectTypes() {
         return projectTypes;
     }
 
-    public void setProjectTypes(List<ProjectType> projectTypes) {
+    public void setProjectTypes(List<ProjectTypeDTO> projectTypes) {
         this.projectTypes = projectTypes;
     }
 
-    public List<Technology> getProjectTechnologies() {
+    public List<TechnologyDTO> getProjectTechnologies() {
         return projectTechnologies;
     }
 
-    public void setProjectTechnologies(List<Technology> projectTechnologies) {
+    public void setProjectTechnologies(List<TechnologyDTO> projectTechnologies) {
         this.projectTechnologies = projectTechnologies;
     }
 
@@ -85,11 +89,11 @@ public class ProjectRequestDTO {
         this.projectSoftSkills = projectSoftSkills;
     }
 
-    public List<HardSkill> getProjectHardSkills() {
+    public List<HardSkillDTO> getProjectHardSkills() {
         return projectHardSkills;
     }
 
-    public void setProjectHardSkills(List<HardSkill> projectHardSkills) {
+    public void setProjectHardSkills(List<HardSkillDTO> projectHardSkills) {
         this.projectHardSkills = projectHardSkills;
     }
 

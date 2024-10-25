@@ -1,6 +1,13 @@
 package de.dataport.dtalentschmiede.core.project;
 
-import de.dataport.dtalentschmiede.core.project.enums.*;
+import de.dataport.dtalentschmiede.core.hardskill.HardSkill;
+import de.dataport.dtalentschmiede.core.hardskill.HardSkillImpl;
+import de.dataport.dtalentschmiede.core.project.enums.ProjectStatus;
+import de.dataport.dtalentschmiede.core.project.enums.SoftSkill;
+import de.dataport.dtalentschmiede.core.projecttype.ProjectType;
+import de.dataport.dtalentschmiede.core.projecttype.ProjectTypeImpl;
+import de.dataport.dtalentschmiede.core.technology.Technology;
+import de.dataport.dtalentschmiede.core.technology.TechnologyImpl;
 
 import java.util.Date;
 import java.util.List;
@@ -42,10 +49,10 @@ public interface Project {
 
     public List<ProjectType> getProjectTypes();
 
-    public void setProjectTypes(List<ProjectType> projectTypes);
+    public void setProjectTypes(List<ProjectTypeImpl> projectTypes);
 
     public List<Technology> getProjectTechnologies();
-    public void setProjectTechnologies(List<Technology> projectTechnologies) ;
+    public void setProjectTechnologies(List<TechnologyImpl> projectTechnologies) ;
 
     public List<SoftSkill> getProjectSoftSkills();
 
@@ -53,7 +60,7 @@ public interface Project {
 
     public List<HardSkill> getProjectHardSkills();
 
-    public void setProjectHardSkills(List<HardSkill> projectHardSkills);
+    public void setProjectHardSkills(List<HardSkillImpl> projectHardSkills);
 
     public String getProjectRepresentative();
     public void setProjectRepresentative(String projectRepresentative);

@@ -1,10 +1,21 @@
 package de.dataport.dtalentschmiede.api.project;
 
+import de.dataport.dtalentschmiede.api.hardskill.dto.HardSkillDTO;
 import de.dataport.dtalentschmiede.api.project.dto.ProjectRequestDTO;
 import de.dataport.dtalentschmiede.api.project.dto.ProjectResponseDTO;
+import de.dataport.dtalentschmiede.api.projecttype.dto.ProjectTypeDTO;
+import de.dataport.dtalentschmiede.api.technology.dto.TechnologyDTO;
+import de.dataport.dtalentschmiede.core.hardskill.HardSkill;
+import de.dataport.dtalentschmiede.core.hardskill.HardSkillImpl;
+import de.dataport.dtalentschmiede.core.hardskill.HardSkillService;
 import de.dataport.dtalentschmiede.core.project.Project;
-import de.dataport.dtalentschmiede.core.project.ProjectImpl;
 import de.dataport.dtalentschmiede.core.project.ProjectService;
+import de.dataport.dtalentschmiede.core.projecttype.ProjectType;
+import de.dataport.dtalentschmiede.core.projecttype.ProjectTypeImpl;
+import de.dataport.dtalentschmiede.core.projecttype.ProjectTypeService;
+import de.dataport.dtalentschmiede.core.technology.Technology;
+import de.dataport.dtalentschmiede.core.technology.TechnologyImpl;
+import de.dataport.dtalentschmiede.core.technology.TechnologyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +36,15 @@ import java.util.stream.Collectors;
 public class ProjectController {
 
     private final ProjectService projectService;
+    private final TechnologyService technologyService;
+    private final ProjectTypeService projectTypeService;
+    private final HardSkillService hardSkillService;
 
-    public ProjectController(ProjectService projectService) {
+    public ProjectController(ProjectService projectService, TechnologyService technologyService, ProjectTypeService projectTypeService, HardSkillService hardSkillService) {
         this.projectService = projectService;
+        this.technologyService = technologyService;
+        this.projectTypeService = projectTypeService;
+        this.hardSkillService = hardSkillService;
     }
 
     @GetMapping
@@ -68,10 +85,49 @@ public class ProjectController {
         project.setProjectTitle(dto.getProjectTitle());
         project.setProjectDescription(dto.getProjectDescription());
         project.setProjectStatus(dto.getProjectStatus());
-        project.setProjectTypes(dto.getProjectTypes());
-        project.setProjectTechnologies(dto.getProjectTechnologies());
+
+        //project.setProjectTypes(dto.getProjectTypes());
+        List<ProjectType> projectTypes = new ArrayList<>();
+        for(ProjectTypeDTO projectTypeDTO : dto.getProjectTypes()) {
+            ProjectType projectType = projectTypeService.findProjectTypeById(projectTypeDTO.getProjectTypeId());
+            if(projectType == null) {
+                break;
+            }
+            projectTypes.add(projectType);
+        }
+        if(projectTypes != null) {
+            project.setProjectTypes(projectTypes.stream().map(ProjectTypeImpl::new).collect(Collectors.toList()));
+
+        }
+
+        List<Technology> technologies = new ArrayList<>();
+        for(TechnologyDTO technologyDTO : dto.getProjectTechnologies()) {
+            Technology technology = technologyService.findTechnologyById(technologyDTO.getTechnologyId());
+            if(technology == null) {
+                break;
+            }
+            technologies.add(technology);
+        }
+        if(technologies != null) {
+            project.setProjectTechnologies(technologies.stream().map(TechnologyImpl::new).collect(Collectors.toList()));
+
+        }
         project.setProjectSoftSkills(dto.getProjectSoftSkills());
-        project.setProjectHardSkills(dto.getProjectHardSkills());
+
+        //project.setProjectHardSkills(dto.getProjectHardSkills());
+        List<HardSkill> hardSkills = new ArrayList<>();
+        for(HardSkillDTO hardSkillDTO : dto.getProjectHardSkills()) {
+            HardSkill hardSkill = hardSkillService.findHardSkillById(hardSkillDTO.getHardSkillId());
+            if(hardSkill == null) {
+                break;
+            }
+            hardSkills.add(hardSkill);
+        }
+        if(hardSkills != null) {
+            project.setProjectHardSkills(hardSkills.stream().map(HardSkillImpl::new).collect(Collectors.toList()));
+
+        }
+
         project.setProjectRepresentative(dto.getProjectRepresentative());
         project.setProjectRepresentativeEmail(dto.getProjectRepresentativeEmail());
         return project;

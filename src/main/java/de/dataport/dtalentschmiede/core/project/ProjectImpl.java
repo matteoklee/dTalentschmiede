@@ -1,10 +1,21 @@
 package de.dataport.dtalentschmiede.core.project;
 
-import de.dataport.dtalentschmiede.core.project.enums.*;
+import de.dataport.dtalentschmiede.core.hardskill.HardSkill;
+import de.dataport.dtalentschmiede.core.hardskill.HardSkillImpl;
+import de.dataport.dtalentschmiede.core.project.enums.ProjectStatus;
+import de.dataport.dtalentschmiede.core.project.enums.SoftSkill;
+import de.dataport.dtalentschmiede.core.projecttype.ProjectType;
+import de.dataport.dtalentschmiede.core.projecttype.ProjectTypeImpl;
+import de.dataport.dtalentschmiede.core.technology.Technology;
+import de.dataport.dtalentschmiede.core.technology.TechnologyImpl;
+import de.dataport.dtalentschmiede.persistence.hardskill.HardSkillEntity;
 import de.dataport.dtalentschmiede.persistence.project.ProjectEntity;
+import de.dataport.dtalentschmiede.persistence.projecttype.ProjectTypeEntity;
+import de.dataport.dtalentschmiede.persistence.technology.TechnologyEntity;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Class "ProjectImpl" is used for ...
@@ -97,22 +108,36 @@ public class ProjectImpl implements Project {
 
     @Override
     public List<ProjectType> getProjectTypes() {
-        return projectEntity.getProjectTypes();
+        return projectEntity.getProjectTypes()
+                .stream()
+                .map(ProjectTypeImpl::new)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public void setProjectTypes(List<ProjectType> projectTypes) {
-        projectEntity.setProjectTypes(projectTypes);
+    public void setProjectTypes(List<ProjectTypeImpl> projectTypes) {
+        List<ProjectTypeEntity> projectTypeEntities = projectTypes
+                .stream()
+                .map(ProjectTypeImpl::getProjectTypeEntity)
+                .collect(Collectors.toList());
+        projectEntity.setProjectTypes(projectTypeEntities);
     }
 
     @Override
     public List<Technology> getProjectTechnologies() {
-        return projectEntity.getProjectTechnologies();
+        return projectEntity.getProjectTechnologies()
+                .stream()
+                .map(TechnologyImpl::new)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public void setProjectTechnologies(List<Technology> projectTechnologies) {
-        projectEntity.setProjectTechnologies(projectTechnologies);
+    public void setProjectTechnologies(List<TechnologyImpl> projectTechnologies) {
+        List<TechnologyEntity> technologyEntities = projectTechnologies
+                .stream()
+                .map(TechnologyImpl::getTechnologyEntity)
+                .collect(Collectors.toList());
+        projectEntity.setProjectTechnologies(technologyEntities);
     }
 
     @Override
@@ -127,12 +152,16 @@ public class ProjectImpl implements Project {
 
     @Override
     public List<HardSkill> getProjectHardSkills() {
-        return projectEntity.getProjectHardSkills();
+        return projectEntity.getProjectHardSkills().stream().map(HardSkillImpl::new).collect(Collectors.toList());
     }
 
     @Override
-    public void setProjectHardSkills(List<HardSkill> projectHardSkills) {
-        projectEntity.setProjectHardSkills(projectHardSkills);
+    public void setProjectHardSkills(List<HardSkillImpl> projectHardSkills) {
+        List<HardSkillEntity> hardSkillEntities = projectHardSkills
+                .stream()
+                .map(HardSkillImpl::getHardSkillEntity)
+                .collect(Collectors.toList());
+        projectEntity.setProjectHardSkills(hardSkillEntities);
     }
 
     @Override

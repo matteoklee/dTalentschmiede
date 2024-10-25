@@ -1,6 +1,11 @@
 package de.dataport.dtalentschmiede.persistence.project;
 
-import de.dataport.dtalentschmiede.core.project.enums.*;
+import de.dataport.dtalentschmiede.core.hardskill.HardSkill;
+import de.dataport.dtalentschmiede.core.project.enums.ProjectStatus;
+import de.dataport.dtalentschmiede.core.project.enums.SoftSkill;
+import de.dataport.dtalentschmiede.persistence.hardskill.HardSkillEntity;
+import de.dataport.dtalentschmiede.persistence.projecttype.ProjectTypeEntity;
+import de.dataport.dtalentschmiede.persistence.technology.TechnologyEntity;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -25,19 +30,23 @@ public class ProjectEntity {
     private Date projectCreatedAt;
     private Date projectUpdatedAt;
     private Date projectFinishedAt;
-    private List<ProjectType> projectTypes;
-    private List<Technology> projectTechnologies;
+    @ManyToMany
+    private List<ProjectTypeEntity> projectTypes;
+    @ManyToMany
+    private List<TechnologyEntity> projectTechnologies;
     private List<SoftSkill> projectSoftSkills;
-    private List<HardSkill> projectHardSkills;
+    @ManyToMany
+    private List<HardSkillEntity> projectHardSkills;
     private String projectRepresentative;
     private String projectRepresentativeEmail;
     //private Integer requiredTalents;
+    //private Date projectDeadline
 
 
     public ProjectEntity() {
     }
 
-    public ProjectEntity(Long projectId, String projectTitle, String projectDescription, ProjectStatus projectStatus, Date projectCreatedAt, Date projectUpdatedAt, Date projectFinishedAt, List<ProjectType> projectTypes, List<Technology> projectTechnologies, List<SoftSkill> projectSoftSkills, List<HardSkill> projectHardSkills, String projectRepresentative, String projectRepresentativeEmail) {
+    public ProjectEntity(Long projectId, String projectTitle, String projectDescription, ProjectStatus projectStatus, Date projectCreatedAt, Date projectUpdatedAt, Date projectFinishedAt, List<ProjectTypeEntity> projectTypes, List<TechnologyEntity> projectTechnologies, List<SoftSkill> projectSoftSkills, List<HardSkillEntity> projectHardSkills, String projectRepresentative, String projectRepresentativeEmail) {
         this.projectId = projectId;
         this.projectTitle = projectTitle;
         this.projectDescription = projectDescription;
@@ -114,19 +123,19 @@ public class ProjectEntity {
         this.projectFinishedAt = projectFinishedAt;
     }
 
-    public List<ProjectType> getProjectTypes() {
+    public List<ProjectTypeEntity> getProjectTypes() {
         return projectTypes;
     }
 
-    public void setProjectTypes(List<ProjectType> projectTypes) {
+    public void setProjectTypes(List<ProjectTypeEntity> projectTypes) {
         this.projectTypes = projectTypes;
     }
 
-    public List<Technology> getProjectTechnologies() {
+    public List<TechnologyEntity> getProjectTechnologies() {
         return projectTechnologies;
     }
 
-    public void setProjectTechnologies(List<Technology> projectTechnologies) {
+    public void setProjectTechnologies(List<TechnologyEntity> projectTechnologies) {
         this.projectTechnologies = projectTechnologies;
     }
 
@@ -138,11 +147,11 @@ public class ProjectEntity {
         this.projectSoftSkills = projectSoftSkills;
     }
 
-    public List<HardSkill> getProjectHardSkills() {
+    public List<HardSkillEntity> getProjectHardSkills() {
         return projectHardSkills;
     }
 
-    public void setProjectHardSkills(List<HardSkill> projectHardSkills) {
+    public void setProjectHardSkills(List<HardSkillEntity> projectHardSkills) {
         this.projectHardSkills = projectHardSkills;
     }
 

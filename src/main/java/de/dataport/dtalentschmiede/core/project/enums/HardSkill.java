@@ -17,6 +17,7 @@ public enum HardSkill {
     PROGRAMMING,
     AGILE,
     SECURITY,
-    DEVOPS;
+    DEVOPS,
+    OTHER;
 
 }
