@@ -4,6 +4,7 @@ import de.dataport.dtalentschmiede.api.hardskill.dto.HardSkillDTO;
 import de.dataport.dtalentschmiede.api.project.dto.ProjectRequestDTO;
 import de.dataport.dtalentschmiede.api.project.dto.ProjectResponseDTO;
 import de.dataport.dtalentschmiede.api.projecttype.dto.ProjectTypeDTO;
+import de.dataport.dtalentschmiede.api.softskill.dto.SoftSkillDTO;
 import de.dataport.dtalentschmiede.api.technology.dto.TechnologyDTO;
 import de.dataport.dtalentschmiede.core.hardskill.HardSkill;
 import de.dataport.dtalentschmiede.core.hardskill.HardSkillImpl;
@@ -13,6 +14,9 @@ import de.dataport.dtalentschmiede.core.project.ProjectService;
 import de.dataport.dtalentschmiede.core.projecttype.ProjectType;
 import de.dataport.dtalentschmiede.core.projecttype.ProjectTypeImpl;
 import de.dataport.dtalentschmiede.core.projecttype.ProjectTypeService;
+import de.dataport.dtalentschmiede.core.softskill.SoftSkill;
+import de.dataport.dtalentschmiede.core.softskill.SoftSkillImpl;
+import de.dataport.dtalentschmiede.core.softskill.SoftSkillService;
 import de.dataport.dtalentschmiede.core.technology.Technology;
 import de.dataport.dtalentschmiede.core.technology.TechnologyImpl;
 import de.dataport.dtalentschmiede.core.technology.TechnologyService;
@@ -39,12 +43,14 @@ public class ProjectController {
     private final TechnologyService technologyService;
     private final ProjectTypeService projectTypeService;
     private final HardSkillService hardSkillService;
+    private final SoftSkillService softSkillService;
 
-    public ProjectController(ProjectService projectService, TechnologyService technologyService, ProjectTypeService projectTypeService, HardSkillService hardSkillService) {
+    public ProjectController(ProjectService projectService, TechnologyService technologyService, ProjectTypeService projectTypeService, HardSkillService hardSkillService, SoftSkillService softSkillService) {
         this.projectService = projectService;
         this.technologyService = technologyService;
         this.projectTypeService = projectTypeService;
         this.hardSkillService = hardSkillService;
+        this.softSkillService = softSkillService;
     }
 
     @GetMapping
@@ -97,7 +103,6 @@ public class ProjectController {
         }
         if(projectTypes != null) {
             project.setProjectTypes(projectTypes.stream().map(ProjectTypeImpl::new).collect(Collectors.toList()));
-
         }
 
         List<Technology> technologies = new ArrayList<>();
@@ -110,9 +115,20 @@ public class ProjectController {
         }
         if(technologies != null) {
             project.setProjectTechnologies(technologies.stream().map(TechnologyImpl::new).collect(Collectors.toList()));
-
         }
-        project.setProjectSoftSkills(dto.getProjectSoftSkills());
+
+        //project.setProjectSoftSkills(dto.getProjectSoftSkills());
+        List<SoftSkill> softSkills = new ArrayList<>();
+        for(SoftSkillDTO softSkillDTO : dto.getProjectSoftSkills()) {
+            SoftSkill softSkill = softSkillService.findSoftSkillById(softSkillDTO.getSoftSkillId());
+            if(softSkill == null) {
+                break;
+            }
+            softSkills.add(softSkill);
+        }
+        if(softSkills != null) {
+            project.setProjectSoftSkills(softSkills.stream().map(SoftSkillImpl::new).collect(Collectors.toList()));
+        }
 
         //project.setProjectHardSkills(dto.getProjectHardSkills());
         List<HardSkill> hardSkills = new ArrayList<>();
@@ -125,7 +141,6 @@ public class ProjectController {
         }
         if(hardSkills != null) {
             project.setProjectHardSkills(hardSkills.stream().map(HardSkillImpl::new).collect(Collectors.toList()));
-
         }
 
         project.setProjectRepresentative(dto.getProjectRepresentative());

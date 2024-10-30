@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  database:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: dTalentschmiede
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 23bovCCq#
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - app-network
+
+  backend:
+    container_name: project_backend
+    build:
+      context: ./dTalentschmiede
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/dTalentschmiede
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 23bovCCq#
+    ports:
+      - "8085:8085"
+    depends_on:
+      - database
+    networks:
+      - app-network
+
+  frontend:
+    container_name: project_frontend
+    build:
+      context: ./dtalentschmiede_frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:

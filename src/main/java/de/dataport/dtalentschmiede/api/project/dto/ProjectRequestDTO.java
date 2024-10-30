@@ -2,9 +2,9 @@ package de.dataport.dtalentschmiede.api.project.dto;
 
 import de.dataport.dtalentschmiede.api.hardskill.dto.HardSkillDTO;
 import de.dataport.dtalentschmiede.api.projecttype.dto.ProjectTypeDTO;
+import de.dataport.dtalentschmiede.api.softskill.dto.SoftSkillDTO;
 import de.dataport.dtalentschmiede.api.technology.dto.TechnologyDTO;
-import de.dataport.dtalentschmiede.core.project.enums.ProjectStatus;
-import de.dataport.dtalentschmiede.core.project.enums.SoftSkill;
+import de.dataport.dtalentschmiede.core.project.ProjectStatus;
 
 import java.util.List;
 
@@ -22,14 +22,14 @@ public class ProjectRequestDTO {
     private ProjectStatus projectStatus;
     private List<ProjectTypeDTO> projectTypes;
     private List<TechnologyDTO> projectTechnologies;
-    private List<SoftSkill> projectSoftSkills;
+    private List<SoftSkillDTO> projectSoftSkills;
     private List<HardSkillDTO> projectHardSkills;
     private String projectRepresentative;
     private String projectRepresentativeEmail;
 
     public ProjectRequestDTO() {}
 
-    public ProjectRequestDTO(String projectTitle, String projectDescription, ProjectStatus projectStatus, List<ProjectTypeDTO> projectTypes, List<TechnologyDTO> projectTechnologies, List<SoftSkill> projectSoftSkills, List<HardSkillDTO> projectHardSkills, String projectRepresentative, String projectRepresentativeEmail) {
+    public ProjectRequestDTO(String projectTitle, String projectDescription, ProjectStatus projectStatus, List<ProjectTypeDTO> projectTypes, List<TechnologyDTO> projectTechnologies, List<SoftSkillDTO> projectSoftSkills, List<HardSkillDTO> projectHardSkills, String projectRepresentative, String projectRepresentativeEmail) {
         this.projectTitle = projectTitle;
         this.projectDescription = projectDescription;
         this.projectStatus = projectStatus;
@@ -81,11 +81,11 @@ public class ProjectRequestDTO {
         this.projectTechnologies = projectTechnologies;
     }
 
-    public List<SoftSkill> getProjectSoftSkills() {
+    public List<SoftSkillDTO> getProjectSoftSkills() {
         return projectSoftSkills;
     }
 
-    public void setProjectSoftSkills(List<SoftSkill> projectSoftSkills) {
+    public void setProjectSoftSkills(List<SoftSkillDTO> projectSoftSkills) {
         this.projectSoftSkills = projectSoftSkills;
     }
 
