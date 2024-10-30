@@ -14,6 +14,7 @@ services:
       - postgres_data/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   backend:
+    container_name: project_backend
     build:
       context: ./dTalentschmiede
       dockerfile: Dockerfile
@@ -27,6 +28,7 @@ services:
       - database
 
   frontend:
+    container_name: project_frontend
     build:
       context: ./dtalentschmiede_frontend
       dockerfile: Dockerfile
