@@ -1,13 +1,11 @@
 package de.dataport.dtalentschmiede.persistence.project;
 
+import de.dataport.dtalentschmiede.core.project.ProjectStatus;
 import jakarta.persistence.EntityExistsException;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 /**
  * Class "ProjectPersistenceService" is used for ...
@@ -30,7 +28,19 @@ public class ProjectPersistenceService {
     }
 
     public List<ProjectEntity> findAllProjects() {
-        return new ArrayList<>(projectRepository.findAll());
+        //return new ArrayList<>(projectRepository.findAll());
+        List<ProjectEntity> projects = new ArrayList<>(projectRepository.findAll());
+        int days = 1;
+        Date archiveThreshold = calculateThresholdDate(days);
+        projects.forEach(projectEntity -> {
+            if((projectEntity.getProjectStatus() == ProjectStatus.COMPLETED || projectEntity.getProjectStatus() == ProjectStatus.CANCELLED)) {
+                if(projectEntity.getProjectFinishedAt() != null && projectEntity.getProjectFinishedAt().before(archiveThreshold)) {
+                    projectEntity.setProjectStatus(ProjectStatus.ARCHIVED);
+                    projectRepository.save(projectEntity);
+                }
+            }
+        });
+        return projects;
     }
 
     public ProjectEntity findProjectById(long projectId) {
@@ -49,6 +59,9 @@ public class ProjectPersistenceService {
         updatedProjectEntity.setProjectSoftSkills(projectEntity.getProjectSoftSkills());
         updatedProjectEntity.setProjectHardSkills(projectEntity.getProjectHardSkills());
         updatedProjectEntity.setProjectUpdatedAt(new Date());
+        if(projectEntity.getProjectStatus() == ProjectStatus.COMPLETED || projectEntity.getProjectStatus() == ProjectStatus.CANCELLED) {
+            updatedProjectEntity.setProjectFinishedAt(new Date());
+        }
 
         return persistProject(updatedProjectEntity);
     }
@@ -67,6 +80,12 @@ public class ProjectPersistenceService {
 
     public void deleteProjectById(long projectId) {
         projectRepository.deleteById(projectId);
+    }
+
+    private Date calculateThresholdDate(int days) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, -days);
+        return calendar.getTime();
     }
 
 }
